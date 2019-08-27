@@ -33,8 +33,9 @@ public class TestDataServlet extends HttpServlet {
             System.out.println(user.getId());
         }
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category("Мусор", "Описание"));
-        categories.add(new Category("small trash", "Описание"));
+        categories.add(new Category("Мелкий мусор", "Немного мусора вне урны"));
+        categories.add(new Category("Куча мусора", "Большое количествоо скопившегося мусора"));
+        categories.add(new Category("Свалка", "Огромная куча бытовых или строительных отходов"));
         for (Category category: categories) {
             categoryService.addCategory(category);
             System.out.println(category.getId());
