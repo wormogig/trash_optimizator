@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&libraries=drawing&callback=initMap" async defer></script>
 
+
     <title>TrashOptimizator</title>
     <!--style for maps-->
     <style>
@@ -191,7 +192,11 @@
             zoom: 18,
             // disableDefaultUI: true //убираем кнопки с карты
         });
+<<<<<<< HEAD
         let drawingManager = new google.maps.drawing.DrawingManager({
+=======
+        var drawingManager = new google.maps.drawing.DrawingManager({
+>>>>>>> vbelovitsky
             drawingControl: true,
             drawingControlOptions: {
                 position: google.maps.ControlPosition.TOP_CENTER,
