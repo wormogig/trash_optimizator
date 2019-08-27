@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+    <title>TrashOptimizator</title>
+
+    <!--style for maps-->
+    <style>
+        #map {
+            height: 100% !important;
+            /*position: absolute !important;*/
+            /*overflow: visible !important;*/
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<!--menu-->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">TRASHOPTIMIZATOR</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">О нас</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--grid map and right-bar-->
+<div class="container-fluid">
+    <div class="row">
+        <!--maps-->
+        <div class="col-md-10" style="height: 900px">
+
+            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Сейчас выделяем область с точками</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной области (n/a):</label>
+                                    <input type="text" class="form-control" id="recipient-name1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text1" class="col-form-label">Количество доступных урн для установки (n/a):</label>
+                                    <input type="number" class="form-control" id="message-text1"></input>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть (n/a)</button>
+                            <button type="button" class="btn btn-primary">Расчитать (n/a)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="map"></div>
+
+        </div>
+        <!--right-bar-->
+		<div id="bar" class="col-md-2">
+            <img src="https://image.flaticon.com/icons/svg/148/148940.svg" class="img-fluid" class="img-responsive">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="inputLogin">Логин</label>
+                        <input id="inputLogin" class="form-control" type="text" required="required" placeholder="Введите логин" name="Login"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Пароль</label>
+                        <input id="inputPassword" class="form-control" type="text" required="required" placeholder="Введите пароль" name="Password"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCount">Число</label>
+                        <input id="inputCount" class="form-control" type="number" required="required" placeholder="Введите число" name="Count"></p>
+                    </div>
+                </form>
+            <!--button-->
+<!--            <button id="somebutton">Отправить</button>-->
+<!--            <button id="somebutton" type="button" class="btn btn-outline-secondary">Отправить</button>-->
+
+
+<!--            здесть выводим данные с list-->
+            <ul id="data_list">
+            </ul>
+            <title>data</title>
+
+
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Инструкция</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Как это работает</h5>
+                    <p class="card-text"> 1) Выделяем область с мусором. <br> 2) Указываем количество урн. <br> 3) Расчитываем расположение.</p>
+                </div>
+            </div>
+
+
+<!--            <button id="highlightarea">Выделить</button>-->
+<!--            <button id="highlightarea" type="button" class="btn btn-outline-secondary">Расчитать</button>-->
+            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2">Расчитать</button>
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel2">Расставить урны</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной области:</label>
+                                    <input type="text" class="form-control" required="required" placeholder="Здесь отображается количество точек в области" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Количество доступных урн для установки:</label>
+                                    <input type="number" class="form-control" required="required" placeholder="Здесь вводим количество доступных урн" id="message-text"></input>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-primary">Расчитать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="container-fluid">-->
+<!--    <div class="row jumborton">-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--java-->
+<script>
+        //jQuery позволяет отправлять и получать данные из list без перезагрузки страницы
+        //скрипт располагается специально в самом конце страницы, что бы во время его загрузки - все остальные элементы уже были созданы
+        //сразу загружаем данные из list
+        //печатаем в консоль данные с формы по нажатию кнопки
+        $('#somebutton').on('click', function () {
+            console.log($('#inputLogin').val());
+            console.log($('#inputPassword').val());
+            console.log($('#inputCount').val());
+            //отправляем данные с формы в list и отображаем на странице
+            $.ajax({
+                //пишем в list
+                type: 'POST',
+                url: '/rest',
+                data: {
+                    Login: $('#inputLogin').val(),
+                    Password: $('#inputPassword').val(),
+                    Count: $('#inputCount').val()
+                },
+                //запрашиваем list и выводим на страничке данные
+                success: function (data) {
+                    $('#data_list').empty(); //очищаем блок уже выведенных строк
+                    getAllModels();
+                },
+                error: function (error) {
+                    console.log('error in POST');
+                }
+            });
+        });
+
+        //выводим на страничку данные сразу
+        $(document).ready(function () {
+           getAllModels();
+        });
+
+        function getAllModels() {
+            $.ajax({
+                type: 'GET',
+                url: '/rest',
+                success: function (data) {
+                    for (var i in data) {//цикл, который проходится по массиву data
+                        var model = data[i];
+                        // $('#data_list').append('<li>id: ' + model.id + '; name: ' + model.name + '</li>');   //добавляем в список новые элементы
+                        $('#data_list').append('<li>' + model.login + ' - ' + model.password + ' - ' + model.count + '</li>');   //добавляем в список новые элементы
+                    }
+                    console.log('ok in GET');
+                },
+                error: function (error) {
+                    console.log('error in GET!');
+                }
+            });
+        }
+    </script>
+
+<script>
+    $(function()
+    {
+        alert('Подключена последняя версия jQuery через Google хостинг');
+    });
+</script>
+
+<title>Simple Map</title>
+<meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+        height: 50%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 50%;
+        margin: 0;
+        padding: 0;
+    }
+
+</style>
+
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 60.7735, lng: 28.6973}, //координаты lavola
+            zoom: 18,
+            disableDefaultUI: true //убираем кнопки с карты
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&callback=initMap"
+        async defer></script>
+
+</body>
+</html>
