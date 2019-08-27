@@ -12,9 +12,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&callback=initMap"
+            async defer></script>
 
     <title>TrashOptimizator</title>
-
     <!--style for maps-->
     <style>
         #map {
@@ -86,34 +87,33 @@
                 </div>
             </div>
 
-
-
             <div id="map"></div>
 
         </div>
         <!--right-bar-->
-		<div id="bar" class="col-md-2">
-            <img src="https://image.flaticon.com/icons/svg/148/148940.svg" class="img-fluid" class="img-responsive">
-                <form role="form">
-                    <div class="form-group">
-                        <label for="inputLogin">Логин</label>
-                        <input id="inputLogin" class="form-control" type="text" required="required" placeholder="Введите логин" name="Login"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword">Пароль</label>
-                        <input id="inputPassword" class="form-control" type="text" required="required" placeholder="Введите пароль" name="Password"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputCount">Число</label>
-                        <input id="inputCount" class="form-control" type="number" required="required" placeholder="Введите число" name="Count"></p>
-                    </div>
-                </form>
+        <div id="bar" class="col-md-2">
+            <!--            <img src="https://www.flaticon.com/premium-icon/icons/svg/1990/1990977.svg" class="img-fluid" class="img-responsive">-->
+            <img src="https://www.flaticon.com/premium-icon/icons/svg/1991/1991033.svg" class="img-fluid" class="img-responsive">
+            <form role="form">
+                <div class="form-group">
+                    <label for="inputLogin">Логин</label>
+                    <input id="inputLogin" class="form-control" type="text" required="required" placeholder="Введите логин" name="Login"></p>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Пароль</label>
+                    <input id="inputPassword" class="form-control" type="text" required="required" placeholder="Введите пароль" name="Password"></p>
+                </div>
+                <div class="form-group">
+                    <label for="inputCount">Число</label>
+                    <input id="inputCount" class="form-control" type="number" required="required" placeholder="Введите число" name="Count"></p>
+                </div>
+            </form>
             <!--button-->
-<!--            <button id="somebutton">Отправить</button>-->
-<!--            <button id="somebutton" type="button" class="btn btn-outline-secondary">Отправить</button>-->
+            <!--            <button id="somebutton">Отправить</button>-->
+            <!--            <button id="somebutton" type="button" class="btn btn-outline-secondary">Отправить</button>-->
 
 
-<!--            здесть выводим данные с list-->
+            <!--            здесть выводим данные с list-->
             <ul id="data_list">
             </ul>
             <title>data</title>
@@ -128,8 +128,8 @@
             </div>
 
 
-<!--            <button id="highlightarea">Выделить</button>-->
-<!--            <button id="highlightarea" type="button" class="btn btn-outline-secondary">Расчитать</button>-->
+            <!--            <button id="highlightarea">Выделить</button>-->
+            <!--            <button id="highlightarea" type="button" class="btn btn-outline-secondary">Расчитать</button>-->
             <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2">Расчитать</button>
             <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -163,104 +163,65 @@
     </div>
 </div>
 
-<!--<div class="container-fluid">-->
-<!--    <div class="row jumborton">-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--java-->
-<script>
-        //jQuery позволяет отправлять и получать данные из list без перезагрузки страницы
-        //скрипт располагается специально в самом конце страницы, что бы во время его загрузки - все остальные элементы уже были созданы
-        //сразу загружаем данные из list
-        //печатаем в консоль данные с формы по нажатию кнопки
-        $('#somebutton').on('click', function () {
-            console.log($('#inputLogin').val());
-            console.log($('#inputPassword').val());
-            console.log($('#inputCount').val());
-            //отправляем данные с формы в list и отображаем на странице
-            $.ajax({
-                //пишем в list
-                type: 'POST',
-                url: '/rest',
-                data: {
-                    Login: $('#inputLogin').val(),
-                    Password: $('#inputPassword').val(),
-                    Count: $('#inputCount').val()
-                },
-                //запрашиваем list и выводим на страничке данные
-                success: function (data) {
-                    $('#data_list').empty(); //очищаем блок уже выведенных строк
-                    getAllModels();
-                },
-                error: function (error) {
-                    console.log('error in POST');
-                }
-            });
-        });
-
-        //выводим на страничку данные сразу
-        $(document).ready(function () {
-           getAllModels();
-        });
-
-        function getAllModels() {
-            $.ajax({
-                type: 'GET',
-                url: '/rest',
-                success: function (data) {
-                    for (var i in data) {//цикл, который проходится по массиву data
-                        var model = data[i];
-                        // $('#data_list').append('<li>id: ' + model.id + '; name: ' + model.name + '</li>');   //добавляем в список новые элементы
-                        $('#data_list').append('<li>' + model.login + ' - ' + model.password + ' - ' + model.count + '</li>');   //добавляем в список новые элементы
-                    }
-                    console.log('ok in GET');
-                },
-                error: function (error) {
-                    console.log('error in GET!');
-                }
-            });
-        }
-    </script>
 
 <script>
-    $(function()
-    {
-        alert('Подключена последняя версия jQuery через Google хостинг');
-    });
-</script>
-
-<title>Simple Map</title>
-<meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-<style>
-    /* Always set the map height explicitly to define the size of the div
-     * element that contains the map. */
-    #map {
-        height: 50%;
-    }
-    /* Optional: Makes the sample page fill the window. */
-    html, body {
-        height: 50%;
-        margin: 0;
-        padding: 0;
-    }
-
-</style>
-
-<script>
-    var map;
+    let reqPoints = [];
     function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 60.7735, lng: 28.6973}, //координаты lavola
             zoom: 18,
-            disableDefaultUI: true //убираем кнопки с карты
+            // disableDefaultUI: true //убираем кнопки с карты
         });
+        // var drawingManager = new google.maps.drawing.DrawingManager({
+        //     drawingControl: true,
+        //     drawingControlOptions: {
+        //         position: google.maps.ControlPosition.TOP_CENTER,
+        //         drawingModes: ['circle']
+        //     },
+        //     circleOptions: {
+        //         fillColor: '#ffff00',
+        //         fillOpacity: 0.35,
+        //         strokeWeight: 1,
+        //         clickable: true,
+        //         editable: true,
+        //         zIndex: 1
+        //     }
+        // });
+        // drawingManager.setMap(map);
+
+        let points = getPoints();
+        for (let i in points) {
+            let model = points[i];
+            let markerPosition = {lat: model.lat, lng: model.lng};
+            let title = model.id;
+            let marker = new google.maps.Marker({
+                color: '#ff0000',
+                position: markerPosition,
+                map: map,
+                title: "'" + title + "'",
+                id: model.id,
+            });
+        }
+    }
+
+    function getPoints() {
+        let points;
+        $.ajax({
+            type: 'GET',
+            url: '/points',
+            async: false,
+            success: function (data) {
+                points=data;
+            },
+            error: function (error) {
+                console.log(error.responseText);
+            }
+        });
+        return points;
     }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&callback=initMap"
-        async defer></script>
+
 
 </body>
 </html>

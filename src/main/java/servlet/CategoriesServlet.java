@@ -1,4 +1,4 @@
-package servlet.back;
+package servlet;
 
 import com.google.gson.Gson;
 import model.Category;

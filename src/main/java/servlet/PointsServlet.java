@@ -1,4 +1,4 @@
-package servlet.back;
+package servlet;
 
 import com.google.gson.Gson;
 import dto.PointMarker;
@@ -22,8 +22,10 @@ public class PointsServlet extends HttpServlet {
         List<PointMarker> points = dtoService.getPoints();
         Gson gson = new Gson();
         String json = gson.toJson(points);
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().println(json);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8"); //Где это в конечном html
+        resp.getWriter().write(json);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
 

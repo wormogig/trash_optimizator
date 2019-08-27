@@ -1,9 +1,10 @@
-package servlet.back;
+package servlet;
 
 import model.Category;
 import model.ModelPoint;
 import model.User;
 import service.*;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
