@@ -22,7 +22,11 @@
             /*position: absolute !important;*/
             /*overflow: visible !important;*/
         }
-
+        .ml-btn {
+            position: absolute;
+            top: 150px;
+            left: 45px;
+        }
         html, body {
             height: 100%;
             margin: 0;
@@ -57,9 +61,9 @@
         <!--maps-->
         <div class="col-md-10" style="height: 900px">
 
-<!--            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"-->
-<!--                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область-->
-<!--            </button>-->
+            <!--            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"-->
+            <!--                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область-->
+            <!--            </button>-->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -167,7 +171,7 @@
                                         установки:</label>
                                     <input type="number" class="form-control" required="required"
                                            placeholder="Здесь вводим количество доступных урн"
-                                           id="message-text"/>
+                                           id="message-text">
                                 </div>
                             </form>
                         </div>
@@ -185,10 +189,11 @@
 
 <script>
     let reqPoints = [];
+
     function initMap() {
         let map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 60.7735, lng: 28.6973}, //координаты lavola
-            zoom: 18,
+            center: {lat: 60.7735, lng: 28.6894}, //координаты lavola
+            zoom: 13,
             // disableDefaultUI: true //убираем кнопки с карты
         });
         let drawingManager = new google.maps.drawing.DrawingManager({
@@ -221,10 +226,23 @@
                 id: model.id,
             });
         }
+        google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
+            let points = getPoints();
+            for (let i in points) {
+                let model = points[i];
+                let title = model.id;
+                if (isInCircle(model.lat, model.lng, circle.getCenter().lat(), circle.getCenter().lng(), circle.getRadius())) {
+                    console.log(title + " - is in Circle")
+                    reqPoints.push(model.id);
+                } else {
+                    console.log(title + " - is not in Circle")
+                }
+            }
+        });
     }
 
-    function isInCircle(pLat,pLong, cLat, cLong, cRad) {
-        return Math.pow((pLat - cLat), 2) + Math.pow((pLong - cLong), 2) <= Math.pow((cRad/100000), 2);
+    function isInCircle(pLat, pLong, cLat, cLong, cRad) {
+        return (Math.pow((pLat - cLat), 2) + Math.pow((pLong - cLong), 2)) <= Math.pow((cRad / 100000), 2);
     }
 
     function getPoints() {
@@ -242,8 +260,17 @@
         });
         return points;
     }
+
+    function sendPoints() {
+        $.ajax({
+            type: 'POST',
+            url: '/sendpoints',
+            data: {ids: JSON.stringify(reqPoints), count: $('#inputCount').val() }
+        })
+    }
 </script>
 
+<button onclick="sendPoints()" class="ml-btn ml-btn-primary" id="sendPoints">send points</button>
 
 </body>
 </html>
