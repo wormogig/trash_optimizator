@@ -12,8 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&callback=initMap"
-            async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&libraries=drawing&callback=initMap" async defer></script>
 
     <title>TrashOptimizator</title>
     <!--style for maps-->
@@ -23,6 +22,7 @@
             /*position: absolute !important;*/
             /*overflow: visible !important;*/
         }
+
         html, body {
             height: 100%;
             margin: 0;
@@ -57,8 +57,11 @@
         <!--maps-->
         <div class="col-md-10" style="height: 900px">
 
-            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область</button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"-->
+<!--                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область-->
+<!--            </button>-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -70,11 +73,13 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной области (n/a):</label>
+                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной
+                                        области (n/a):</label>
                                     <input type="text" class="form-control" id="recipient-name1">
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text1" class="col-form-label">Количество доступных урн для установки (n/a):</label>
+                                    <label for="message-text1" class="col-form-label">Количество доступных урн для
+                                        установки (n/a):</label>
                                     <input type="number" class="form-control" id="message-text1"></input>
                                 </div>
                             </form>
@@ -93,19 +98,23 @@
         <!--right-bar-->
         <div id="bar" class="col-md-2">
             <!--            <img src="https://www.flaticon.com/premium-icon/icons/svg/1990/1990977.svg" class="img-fluid" class="img-responsive">-->
-            <img src="https://www.flaticon.com/premium-icon/icons/svg/1991/1991033.svg" class="img-fluid" class="img-responsive">
+            <img src="https://www.flaticon.com/premium-icon/icons/svg/1991/1991033.svg" class="img-fluid"
+                 class="img-responsive">
             <form role="form">
                 <div class="form-group">
                     <label for="inputLogin">Логин</label>
-                    <input id="inputLogin" class="form-control" type="text" required="required" placeholder="Введите логин" name="Login"></p>
+                    <input id="inputLogin" class="form-control" type="text" required="required"
+                           placeholder="Введите логин" name="Login"></p>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Пароль</label>
-                    <input id="inputPassword" class="form-control" type="text" required="required" placeholder="Введите пароль" name="Password"></p>
+                    <input id="inputPassword" class="form-control" type="text" required="required"
+                           placeholder="Введите пароль" name="Password"></p>
                 </div>
                 <div class="form-group">
                     <label for="inputCount">Число</label>
-                    <input id="inputCount" class="form-control" type="number" required="required" placeholder="Введите число" name="Count"></p>
+                    <input id="inputCount" class="form-control" type="number" required="required"
+                           placeholder="Введите число" name="Count"></p>
                 </div>
             </form>
             <!--button-->
@@ -123,15 +132,19 @@
                 <div class="card-header">Инструкция</div>
                 <div class="card-body text-dark">
                     <h5 class="card-title">Как это работает</h5>
-                    <p class="card-text"> 1) Выделяем область с мусором. <br> 2) Указываем количество урн. <br> 3) Расчитываем расположение.</p>
+                    <p class="card-text"> 1) Выделяем область с мусором. <br> 2) Указываем количество урн. <br> 3)
+                        Расчитываем расположение.</p>
                 </div>
             </div>
 
 
             <!--            <button id="highlightarea">Выделить</button>-->
             <!--            <button id="highlightarea" type="button" class="btn btn-outline-secondary">Расчитать</button>-->
-            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2">Расчитать</button>
-            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"
+                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2">Расчитать
+            </button>
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -143,12 +156,18 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной области:</label>
-                                    <input type="text" class="form-control" required="required" placeholder="Здесь отображается количество точек в области" id="recipient-name">
+                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной
+                                        области:</label>
+                                    <input type="text" class="form-control" required="required"
+                                           placeholder="Здесь отображается количество точек в области"
+                                           id="recipient-name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Количество доступных урн для установки:</label>
-                                    <input type="number" class="form-control" required="required" placeholder="Здесь вводим количество доступных урн" id="message-text"></input>
+                                    <label for="message-text" class="col-form-label">Количество доступных урн для
+                                        установки:</label>
+                                    <input type="number" class="form-control" required="required"
+                                           placeholder="Здесь вводим количество доступных урн"
+                                           id="message-text"/>
                                 </div>
                             </form>
                         </div>
@@ -167,27 +186,27 @@
 <script>
     let reqPoints = [];
     function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        let map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 60.7735, lng: 28.6973}, //координаты lavola
             zoom: 18,
             // disableDefaultUI: true //убираем кнопки с карты
         });
-        // var drawingManager = new google.maps.drawing.DrawingManager({
-        //     drawingControl: true,
-        //     drawingControlOptions: {
-        //         position: google.maps.ControlPosition.TOP_CENTER,
-        //         drawingModes: ['circle']
-        //     },
-        //     circleOptions: {
-        //         fillColor: '#ffff00',
-        //         fillOpacity: 0.35,
-        //         strokeWeight: 1,
-        //         clickable: true,
-        //         editable: true,
-        //         zIndex: 1
-        //     }
-        // });
-        // drawingManager.setMap(map);
+        let drawingManager = new google.maps.drawing.DrawingManager({
+            drawingControl: true,
+            drawingControlOptions: {
+                position: google.maps.ControlPosition.TOP_CENTER,
+                drawingModes: ['circle']
+            },
+            circleOptions: {
+                fillColor: '#ffff00',
+                fillOpacity: 0.35,
+                strokeWeight: 1,
+                clickable: true,
+                editable: true,
+                zIndex: 1
+            }
+        });
+        drawingManager.setMap(map);
 
         let points = getPoints();
         for (let i in points) {
@@ -204,6 +223,10 @@
         }
     }
 
+    function isInCircle(pLat,pLong, cLat, cLong, cRad) {
+        return Math.pow((pLat - cLat), 2) + Math.pow((pLong - cLong), 2) <= Math.pow((cRad/100000), 2);
+    }
+
     function getPoints() {
         let points;
         $.ajax({
@@ -211,7 +234,7 @@
             url: '/points',
             async: false,
             success: function (data) {
-                points=data;
+                points = data;
             },
             error: function (error) {
                 console.log(error.responseText);
@@ -220,7 +243,6 @@
         return points;
     }
 </script>
-
 
 
 </body>
