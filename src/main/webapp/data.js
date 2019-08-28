@@ -2,6 +2,8 @@ let garbageIds = [];
 let urns;
 let map;
 
+document.getElementById("urnsSend").hidden = "hidden";
+
 function garbageCount() {
     document.getElementById('garbageCount').value = garbageIds.length;
 }
@@ -124,5 +126,20 @@ function sendPoints() {
             });
         }
         $('#exampleModal2 .close').click();
+        document.getElementById("garbageCalc").hidden = "hidden";
+        document.getElementById("urnsSend").hidden = "";
     }
+}
+
+function urnsSend() {
+    $.ajax({
+        type: 'POST',
+        url: '/report',
+        data: {garbageIds: JSON.stringify(garbageIds), urns: JSON.stringify(urns)},
+        success: function () {
+        },
+        error: function (error) {
+            console.log(error.responseText);
+        },
+    });
 }
