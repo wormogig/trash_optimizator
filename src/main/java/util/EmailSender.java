@@ -1,5 +1,7 @@
 package util;
 
+import dto.PointSimple;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.HashMap;
@@ -8,14 +10,13 @@ import java.util.Map;
 import java.util.Properties;
 
 public class EmailSender {
-    private List<Marker> redMarkers;
-    private List<Marker> greenMarkers;
+    private List<PointSimple> redMarkers;
+    private List<PointSimple> greenMarkers;
     private Message message;
 
-    EmailSender(List<Marker> redMarkers, List<Marker> greenMarkers){
+    public EmailSender(List<PointSimple> redMarkers, List<PointSimple> greenMarkers){
         this.redMarkers = redMarkers;
         this.greenMarkers = greenMarkers;
-        generateURL();
     }
 /*
 Генерим URL статической карты с точками

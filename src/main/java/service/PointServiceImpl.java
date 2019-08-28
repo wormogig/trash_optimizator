@@ -2,6 +2,7 @@ package service;
 
 import dao.PointDao;
 import dao.PointDaoImpl;
+import dto.PointSimple;
 import model.ModelPoint;
 
 
@@ -64,5 +65,14 @@ public class PointServiceImpl implements PointService {
     @Override
     public boolean deletePointById(long id) {
         return pointDAO.deletePointByID(id);
+    }
+
+    @Override
+    public List<PointSimple> convertPointType(List<ModelPoint> pointsIn) {
+        List<PointSimple> points = new ArrayList<>();
+        for (ModelPoint pointIn : pointsIn) {
+            points.add(new PointSimple(pointIn));
+        }
+        return points;
     }
 }
