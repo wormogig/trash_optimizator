@@ -74,6 +74,7 @@ function drawUrns(data) {
         });
     }
 }
+
 function isInCircle(pLat, pLong, cLat, cLong, cRad) {
     var pCord = new google.maps.LatLng(pLat, pLong);
     var cCord = new google.maps.LatLng(cLat, cLong);
@@ -97,29 +98,31 @@ function getPoints() {
 }
 
 function sendPoints() {
-    $.ajax({
-        type: 'POST',
-        url: '/optim',
-        async: false,
-        data: {garbageIds: JSON.stringify(garbageIds), urnCount: $('#urnCount').val()},
-        success: function (data) {
-            urns = data;
-        },
-        error: function (error) {
-            console.log(error.responseText);
-        },
-    });
-    for (let i in urns) {
-        let model = urns[i];
-        let markerPosition = {lat: model.lat, lng: model.lng};
-        let title = model.id;
-        let marker = new google.maps.Marker({
-            position: markerPosition,
-            map: map,
-            icon: {
-                url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-            }
+    if (garbageIds.length >= $('#urnCount').val()) {
+        $.ajax({
+            type: 'POST',
+            url: '/optim',
+            async: false,
+            data: {garbageIds: JSON.stringify(garbageIds), urnCount: $('#urnCount').val()},
+            success: function (data) {
+                urns = data;
+            },
+            error: function (error) {
+                console.log(error.responseText);
+            },
         });
+        for (let i in urns) {
+            let model = urns[i];
+            let markerPosition = {lat: model.lat, lng: model.lng};
+            let title = model.id;
+            let marker = new google.maps.Marker({
+                position: markerPosition,
+                map: map,
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                }
+            });
+        }
+        $('#exampleModal2 .close').click();
     }
-    $('#exampleModal2 .close').click();
 }
