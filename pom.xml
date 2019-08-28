@@ -77,6 +77,20 @@
       <artifactId>tomcat-jsp-api</artifactId>
       <version>${tomcat.version}</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>2.3.28</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>trash-optimizator</finalName>
