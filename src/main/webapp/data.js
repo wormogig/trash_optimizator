@@ -12,7 +12,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 60.7735, lng: 28.6894}, //координаты lavola
         zoom: 13,
-        // disableDefaultUI: true //убираем кнопки с карты
+        disableDefaultUI: true //убираем кнопки с карты
     });
 
     let drawingManager = new google.maps.drawing.DrawingManager({
