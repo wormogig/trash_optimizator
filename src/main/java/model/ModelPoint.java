@@ -2,11 +2,7 @@ package model;
 
 
 
-import dto.PointSend;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 @Entity
@@ -30,23 +26,23 @@ public class ModelPoint extends AbstractDbObj{
     private User user;
 
     @Column
-    private boolean isComleted;
+    private boolean isCompleted;
 
 
     public ModelPoint() {
     }
 
-    public ModelPoint(double latitude, double longitude, Category category, String date, User user, boolean isComleted) {
+    public ModelPoint(double latitude, double longitude, Category category, String date, User user, boolean isCompleted) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.category = category;
         this.date = date;
         this.user = user;
-        this.isComleted = isComleted;
+        this.isCompleted = isCompleted;
     }
 
-    public boolean isComleted() {
-        return isComleted;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
     public double getLatitude() {
