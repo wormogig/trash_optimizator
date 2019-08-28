@@ -12,9 +12,6 @@ public class Category extends AbstractDbObj{
     @Column(name = "description")
     private String description;
 
-    @Column(name = "image")
-    private long image;
-
     public Category() {
     }
 
