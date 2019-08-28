@@ -1,9 +1,6 @@
 package service;
 
-import dto.PointInfo;
-import dto.PointMarker;
-import dto.PointSend;
-import dto.UrnPoint;
+import dto.*;
 import model.Category;
 import model.ModelPoint;
 import model.User;
@@ -44,6 +41,11 @@ public class DtoServiceImpl implements DtoService {
     @Override
     public PointInfo getPoint(long id) {
         return new PointInfo(pointService.getPoint(id));
+    }
+
+    @Override
+    public PointInfoAdmin getPointAdmin(long id) {
+        return new PointInfoAdmin(pointService.getPoint(id));
     }
 
     @Override

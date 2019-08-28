@@ -48,7 +48,7 @@ public class TestDataServlet extends HttpServlet {
         points.add(new ModelPoint(60.775243, 28.698896, categories.get(0), "12/04/1980 13:01:20", users.get(0),false, img1));
         points.add(new ModelPoint(60.774070, 28.698896, categories.get(0), "12/04/1980 13:01:20", users.get(1),false, img2));
         points.add(new ModelPoint(60.774453, 28.697518, categories.get(1), "12/04/1980 13:01:20", users.get(2), false, ""));
-        points.add(new ModelPoint(60.774557, 28.696931, categories.get(0), "12/04/1980 13:01:20", users.get(0),false, ""));
+        points.add(new ModelPoint(60.774557, 28.696931, categories.get(1), "12/04/1980 13:01:20", users.get(0),false, ""));
         points.add(new ModelPoint(60.775584, 28.697220, categories.get(0), "12/04/1980 13:01:20", users.get(1),false, ""));
         points.add(new ModelPoint(60.775846, 28.696630, categories.get(1), "12/04/1980 13:01:20", users.get(2), false, ""));
 

@@ -25,7 +25,13 @@ public class PointServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] str = req.getPathInfo().split("/");
         long id = Long.parseLong(str[str.length-1]);
-        PointInfo point = dtoService.getPoint(id);
+        boolean isAdmin = Boolean.parseBoolean(req.getParameter("admin")) ;
+        PointInfo point = null;
+        if (isAdmin) {
+            point = dtoService.getPointAdmin(id);
+        } else {
+            point = dtoService.getPoint(id);
+        }
         Gson gson = new Gson();
         String json = gson.toJson(point);
         resp.setContentType("text/html; charset=UTF-8");
