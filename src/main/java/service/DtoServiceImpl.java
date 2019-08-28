@@ -50,6 +50,7 @@ public class DtoServiceImpl implements DtoService {
 
     @Override
     public List<PointMarker> getPoints() {
+//        Здесь вылетает NPE если база пустая!!! Но это не точно. Но один раз это вылетело. Михаил
         List<PointMarker> pointMarkers = new ArrayList<>();
         List<ModelPoint> points = pointService.getPoints();
         for (ModelPoint point:points) {

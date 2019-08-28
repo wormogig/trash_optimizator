@@ -36,6 +36,7 @@ public class ModelPoint extends AbstractDbObj{
     public ModelPoint() {
     }
 
+
     public ModelPoint(double latitude, double longitude, Category category, String date, User user, boolean isCompleted, String image) {
         this.latitude = latitude;
         this.longitude = longitude;

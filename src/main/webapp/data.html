@@ -6,22 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&libraries=drawing&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&libraries=drawing&callback=initMap"
+            async defer></script>
 
 
     <title>TrashOptimizator</title>
     <!--style for maps-->
     <style>
         #map {
-            height: 100% !important;
+            height: 70% !important;
             /*position: absolute !important;*/
             /*overflow: visible !important;*/
+        }
+
+        .ml-btn {
+            position: absolute;
+            top: 150px;
+            left: 45px;
         }
 
         html, body {
@@ -57,10 +71,9 @@
     <div class="row">
         <!--maps-->
         <div class="col-md-10" style="height: 900px">
-
-<!--            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"-->
-<!--                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область-->
-<!--            </button>-->
+            <!--            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"-->
+            <!--                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область-->
+            <!--            </button>-->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -71,24 +84,6 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной
-                                        области (n/a):</label>
-                                    <input type="text" class="form-control" id="recipient-name1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="message-text1" class="col-form-label">Количество доступных урн для
-                                        установки (n/a):</label>
-                                    <input type="number" class="form-control" id="message-text1"></input>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть (n/a)</button>
-                            <button type="button" class="btn btn-primary">Расчитать (n/a)</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -96,34 +91,9 @@
             <div id="map"></div>
 
         </div>
-        <!--right-bar-->
         <div id="bar" class="col-md-2">
-            <!--            <img src="https://www.flaticon.com/premium-icon/icons/svg/1990/1990977.svg" class="img-fluid" class="img-responsive">-->
             <img src="https://www.flaticon.com/premium-icon/icons/svg/1991/1991033.svg" class="img-fluid"
                  class="img-responsive">
-            <form role="form">
-                <div class="form-group">
-                    <label for="inputLogin">Логин</label>
-                    <input id="inputLogin" class="form-control" type="text" required="required"
-                           placeholder="Введите логин" name="Login"></p>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword">Пароль</label>
-                    <input id="inputPassword" class="form-control" type="text" required="required"
-                           placeholder="Введите пароль" name="Password"></p>
-                </div>
-                <div class="form-group">
-                    <label for="inputCount">Число</label>
-                    <input id="inputCount" class="form-control" type="number" required="required"
-                           placeholder="Введите число" name="Count"></p>
-                </div>
-            </form>
-            <!--button-->
-            <!--            <button id="somebutton">Отправить</button>-->
-            <!--            <button id="somebutton" type="button" class="btn btn-outline-secondary">Отправить</button>-->
-
-
-            <!--            здесть выводим данные с list-->
             <ul id="data_list">
             </ul>
             <title>data</title>
@@ -137,12 +107,9 @@
                         Расчитываем расположение.</p>
                 </div>
             </div>
-
-
-            <!--            <button id="highlightarea">Выделить</button>-->
-            <!--            <button id="highlightarea" type="button" class="btn btn-outline-secondary">Расчитать</button>-->
             <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"
-                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2">Расчитать
+                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2" onclick="garbageCount()">
+                Расчитать
             </button>
             <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                  aria-hidden="true">
@@ -157,24 +124,22 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной
+                                    <label for="garbageCount" class="col-form-label">Количество точек мусора в выбранной
                                         области:</label>
-                                    <input type="text" class="form-control" required="required"
-                                           placeholder="Здесь отображается количество точек в области"
-                                           id="recipient-name">
+                                    <input type="text" class="form-control" id="garbageCount" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Количество доступных урн для
+                                    <label for="urnCount" class="col-form-label">Количество доступных урн для
                                         установки:</label>
                                     <input type="number" class="form-control" required="required"
                                            placeholder="Здесь вводим количество доступных урн"
-                                           id="message-text"/>
+                                           id="urnCount">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <button type="button" class="btn btn-primary">Расчитать</button>
+                            <button onclick="sendPoints()" type="button" class="btn btn-primary">Расчитать</button>
                         </div>
                     </div>
                 </div>
@@ -185,11 +150,19 @@
 
 
 <script>
-    let reqPoints = [];
+    let garbageIds = [];
+    let urns;
+    let map;
+
+    function garbageCount() {
+        document.getElementById('garbageCount').value = garbageIds.length;
+    }
+
+
     function initMap() {
-        let map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 60.7735, lng: 28.6973}, //координаты lavola
-            zoom: 18,
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 60.7735, lng: 28.6894}, //координаты lavola
+            zoom: 13,
             // disableDefaultUI: true //убираем кнопки с карты
         });
 
@@ -211,41 +184,106 @@
         drawingManager.setMap(map);
 
         let points = getPoints();
+        //Marker garbage on map.
         for (let i in points) {
             let model = points[i];
             let markerPosition = {lat: model.lat, lng: model.lng};
             let title = model.id;
             let marker = new google.maps.Marker({
-                color: '#ff0000',
                 position: markerPosition,
                 map: map,
                 title: "'" + title + "'",
                 id: model.id,
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                }
+            });
+        }
+        //Marker urns on map
+
+        google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
+            let points = getPoints();
+            for (let i in points) {
+                let model = points[i];
+                let title = model.id;
+                if (isInCircle(model.lat, model.lng, circle.getCenter().lat(), circle.getCenter().lng(), circle.getRadius())) {
+                    garbageIds.push(model.id);
+                }
+            }
+        });
+    }
+
+    function drawUrns(data) {
+        for (let i in data) {
+            let model = data[i];
+            let markerPosition = {lat: model.lat, lng: model.lng};
+            let title = model.id;
+            let marker = new google.maps.Marker({
+                position: markerPosition,
+                map: map,
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                }
             });
         }
     }
+        function isInCircle(pLat, pLong, cLat, cLong, cRad) {
+            return (Math.pow((pLat - cLat), 2) + Math.pow((pLong - cLong), 2)) <= Math.pow((cRad / 100000), 2);
+        }
 
-    function isInCircle(pLat,pLong, cLat, cLong, cRad) {
-        return Math.pow((pLat - cLat), 2) + Math.pow((pLong - cLong), 2) <= Math.pow((cRad/100000), 2);
-    }
+        function getPoints() {
+            let points;
+            $.ajax({
+                type: 'GET',
+                url: '/points',
+                async: false,
+                success: function (data) {
+                    points = data;
+                },
+                error: function (error) {
+                    console.log(error.responseText);
+                }
+            });
+            return points;
+        }
 
-    function getPoints() {
-        let points;
-        $.ajax({
-            type: 'GET',
-            url: '/points',
-            async: false,
-            success: function (data) {
-                points = data;
-            },
-            error: function (error) {
-                console.log(error.responseText);
-            }
+        function sendPoints() {
+            $.ajax({
+                type: 'POST',
+                url: '/optim',
+                async: false,
+                data: {garbageIds: JSON.stringify(garbageIds), urnCount: $('#urnCount').val()},
+                success: function (data) {
+                    urns = data;
+                },
+                error: function (error) {
+                    console.log(error.responseText);
+                },
+                // ("#exampleModal2").close(),
+
+
         });
-        return points;
-    }
-</script>
+            for (let i in urns) {
+                let model = urns[i];
+                let markerPosition = {lat: model.lat, lng: model.lng};
+                let title = model.id;
+                let marker = new google.maps.Marker({
+                    position: markerPosition,
+                    map: map,
+                    icon: {
+                        url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                    }
+                });
+            }
+            $('#exampleModal2 .close').click();
 
+            // $('#exampleModalLabel2').close;
+            // $("#exampleModal2").modal().hide();
+            // $("#exampleModal2").close();
+
+            // $('.close').click();
+        }
+</script>
 
 </body>
 </html>
