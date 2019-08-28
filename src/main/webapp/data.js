@@ -75,7 +75,9 @@ function drawUrns(data) {
     }
 }
 function isInCircle(pLat, pLong, cLat, cLong, cRad) {
-    return (Math.pow((pLat - cLat), 2) + Math.pow((pLong - cLong), 2)) <= Math.pow((cRad / 100000), 2);
+    var pCord = new google.maps.LatLng(pLat, pLong);
+    var cCord = new google.maps.LatLng(cLat, cLong);
+    return google.maps.geometry.spherical.computeDistanceBetween(pCord, cCord) <= cRad;
 }
 
 function getPoints() {
