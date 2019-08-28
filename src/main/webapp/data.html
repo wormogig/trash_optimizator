@@ -226,7 +226,7 @@
     function sendPoints() {
         $.ajax({
             type: 'POST',
-            url: '/sendpoints',
+            url: '/optim',
             data: {garbageIds: JSON.stringify(garbageIds), urnCount: $('#urnCount').val() }
         })
     }
