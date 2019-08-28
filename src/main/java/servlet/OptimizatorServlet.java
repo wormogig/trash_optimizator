@@ -30,6 +30,8 @@ public class OptimizatorServlet extends HttpServlet {
         double[][] resultPoints = new Kmeans(readyPoints, urnCount).getCentersArray();
         List<UrnPoint> urnPoints = dtoService.createListUrnPoint(resultPoints);
         String respJson = gson.toJson(urnPoints);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(respJson);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
