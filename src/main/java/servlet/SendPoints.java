@@ -19,5 +19,6 @@ public class SendPoints extends HttpServlet {
         String points = req.getParameter("ids");
         Long [] ids = gson.fromJson(points,Long[].class);
         String count = req.getParameter("count");
+        System.out.println("");
     }
 }

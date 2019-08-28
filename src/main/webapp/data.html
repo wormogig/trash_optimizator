@@ -60,7 +60,6 @@
     <div class="row">
         <!--maps-->
         <div class="col-md-10" style="height: 900px">
-
             <!--            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"-->
             <!--                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область-->
             <!--            </button>-->
@@ -73,24 +72,6 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной
-                                        области (n/a):</label>
-                                    <input type="text" class="form-control" id="recipient-name1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="message-text1" class="col-form-label">Количество доступных урн для
-                                        установки (n/a):</label>
-                                    <input type="number" class="form-control" id="message-text1"></input>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть (n/a)</button>
-                            <button type="button" class="btn btn-primary">Расчитать (n/a)</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +103,7 @@
             <!--            <button id="highlightarea">Выделить</button>-->
             <!--            <button id="highlightarea" type="button" class="btn btn-outline-secondary">Расчитать</button>-->
             <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"
-                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2">Расчитать
+                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2" onclick="garbageCount()">Расчитать
             </button>
             <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                  aria-hidden="true">
@@ -137,24 +118,22 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Количество мусора в выбранной
+                                    <label for="garbageCount" class="col-form-label">Количество точек мусора в выбранной
                                         области:</label>
-                                    <input type="text" class="form-control" required="required"
-                                           placeholder="Здесь отображается количество точек в области"
-                                           id="recipient-name">
+                                    <input type="text" class="form-control" id="garbageCount" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Количество доступных урн для
+                                    <label for="trashCount" class="col-form-label">Количество доступных урн для
                                         установки:</label>
                                     <input type="number" class="form-control" required="required"
                                            placeholder="Здесь вводим количество доступных урн"
-                                           id="message-text">
+                                           id="trashCount">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <button type="button" class="btn btn-primary">Расчитать</button>
+                            <button onclick="sendPoints()" type="button" class="btn btn-primary">Расчитать</button>
                         </div>
                     </div>
                 </div>
@@ -166,6 +145,12 @@
 
 <script>
     let reqPoints = [];
+
+    function garbageCount()
+    {
+     document.getElementById('garbageCount').value = reqPoints.length;
+    }
+
 
     function initMap() {
         let map = new google.maps.Map(document.getElementById('map'), {
@@ -242,12 +227,10 @@
         $.ajax({
             type: 'POST',
             url: '/sendpoints',
-            data: {ids: JSON.stringify(reqPoints), count: $('#inputCount').val() }
+            data: {ids: JSON.stringify(reqPoints), count: $('#trashCount').val() }
         })
     }
 </script>
-
-<button onclick="sendPoints()" class="ml-btn ml-btn-primary" id="sendPoints">send points</button>
 
 </body>
 </html>
