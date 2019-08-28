@@ -22,6 +22,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&libraries=drawing&callback=initMap"
             async defer></script>
 
+
     <title>TrashOptimizator</title>
     <!--style for maps-->
     <style>
@@ -164,6 +165,7 @@
             zoom: 13,
             // disableDefaultUI: true //убираем кнопки с карты
         });
+
         let drawingManager = new google.maps.drawing.DrawingManager({
             drawingControl: true,
             drawingControlOptions: {
