@@ -9,16 +9,18 @@ public class PointSend {
     private double lng;
 //    private LocalDateTime date;
     private String date;
+    private String image;
 
     public PointSend() {
     }
 
-    public PointSend(long userId, long categoryId, double latitude, double longitude, String date) {
+    public PointSend(long userId, long categoryId, double latitude, double longitude, String date, String image) {
         this.userId = userId;
         this.categoryId = categoryId;
         this.lat = latitude;
         this.lng = longitude;
         this.date = date;
+        this.image = image;
     }
 
     public long getUserId() {
@@ -39,6 +41,10 @@ public class PointSend {
 
     public String getDate() {
         return date;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     //    public LocalDateTime getDate() {

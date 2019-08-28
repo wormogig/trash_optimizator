@@ -66,6 +66,7 @@ public class DtoServiceImpl implements DtoService {
                 category,
                 point.getDate(),
                 user,
-                false));
+                false,
+                point.getImage()));
     }
 }

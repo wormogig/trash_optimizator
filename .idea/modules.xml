@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/trash-optimizator.iml" filepath="$PROJECT_DIR$/trash-optimizator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/trash_optimizator.iml" filepath="$PROJECT_DIR$/.idea/trash_optimizator.iml" />
     </modules>
   </component>
 </project>

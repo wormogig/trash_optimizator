@@ -13,6 +13,6 @@ public class PointMarker {
         id = point.getId();
         lat = point.getLatitude();
         lng = point.getLongitude();
-        isCompleted = point.isComleted();
+        isCompleted = point.isCompleted();
     }
 }

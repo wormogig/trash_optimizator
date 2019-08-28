@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="trash-optimizator" />
+        <module name="trash_optimizator" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="trash-optimizator" target="8" />
+      <module name="trash_optimizator" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
