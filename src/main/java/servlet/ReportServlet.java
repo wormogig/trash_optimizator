@@ -26,6 +26,18 @@ public class ReportServlet extends HttpServlet {
     private ReportService reportService = ReportServiceImpl.getInstance();
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String[] str = req.getPathInfo().split("/");
+        long id = Long.parseLong(req.getParameter("id"));
+        //PointInfo point = dtoService.getPoint(id);
+        List<PointSimple> points = reportService.getPointFromReport(id);
+        Gson gson = new Gson();
+        String json = gson.toJson(points);
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.getWriter().println(json);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Gson gson = new Gson();
         Type typeListPoint = new TypeToken<List<PointSimple>>(){}.getType();

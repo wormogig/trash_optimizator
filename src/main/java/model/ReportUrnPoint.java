@@ -25,4 +25,12 @@ public class ReportUrnPoint extends AbstractDbObj{
         this.lng = point.getLng();
         this.report = report;
     }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
 }

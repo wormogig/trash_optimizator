@@ -1,6 +1,7 @@
 package dto;
 
 import model.ModelPoint;
+import model.ReportUrnPoint;
 
 public class PointSimple {
     private double lat;
@@ -14,6 +15,11 @@ public class PointSimple {
     public PointSimple(ModelPoint point) {
         this.lat = point.getLatitude();
         this.lng = point.getLongitude();
+    }
+
+    public PointSimple(ReportUrnPoint point) {
+        this.lat = point.getLat();
+        this.lng = point.getLng();
     }
 
     public double getLat() {

@@ -7,6 +7,7 @@ import model.Report;
 import model.ReportUrnPoint;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportServiceImpl implements ReportService {
@@ -40,6 +41,12 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<PointSimple> getPointFromReport(long reportsId) {
-        return null;
+        Report report = reportDao.getById(reportsId, Report.class.getName());
+        List<ReportUrnPoint> pointsDB = reportDao.getPointsByReportID(report);
+        List<PointSimple> points = new ArrayList<>();
+        for (ReportUrnPoint pointDB: pointsDB) {
+            points.add(new PointSimple(pointDB));
+        }
+        return points;
     }
 }
