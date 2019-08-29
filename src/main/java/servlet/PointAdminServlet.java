@@ -1,9 +1,7 @@
 package servlet;
 
 import com.google.gson.Gson;
-import dto.Message;
-import dto.PointInfo;
-import dto.PointSend;
+import dto.PointInfoAdmin;
 import service.DtoService;
 import service.DtoServiceImpl;
 import service.PointService;
@@ -16,16 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/point/*")
-public class PointServlet extends HttpServlet {
+@WebServlet("/point/admin")
+public class PointAdminServlet extends HttpServlet {
     DtoService dtoService = DtoServiceImpl.getInstance();
     PointService pointService = PointServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String[] str = req.getPathInfo().split("/");
-        long id = Long.parseLong(str[str.length-1]);
-        PointInfo point = dtoService.getPoint(id);
+        long id = Long.parseLong(req.getParameter("id"));
+        PointInfoAdmin point = dtoService.getPointAdmin(id);
         Gson gson = new Gson();
         String json = gson.toJson(point);
         resp.setContentType("text/html; charset=UTF-8");
@@ -34,20 +31,14 @@ public class PointServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String json = req.getReader().readLine();
-        Gson gson = new Gson();
-        Message message = new Message("");
-        try {
-            PointSend point = gson.fromJson(json, PointSend.class);
-            dtoService.addPoint(point);
-            message.setMessage("Добавление точки прошло успешно");
-        } catch (Exception e) {
-            System.out.println("Входной Json некорректен");
-            message.setMessage("Добавление точки не удалось");
+        String action = req.getParameter("action");
+        if (action.equals("delete")) {
+            try {
+                long id = Long.parseLong(req.getParameter("id"));
+                pointService.deletePointById(id);
+            } catch (Exception e) {
+                System.out.println("Удаление точки не удалось");
+            }
         }
-        String mess = gson.toJson(message);
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().println(mess);
     }
-
 }
