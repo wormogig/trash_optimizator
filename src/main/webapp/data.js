@@ -1,12 +1,27 @@
 let garbageIds = [];
 let urns;
 let map;
+let drawingManager;
+let previousCircle;
+let currentCircle;
+let calcNeed = true;
 
 
 document.getElementById("urnsSend").hidden = "hidden";
 
 function garbageCount() {
+    if(calcNeed) {
+        let points = getPoints();
+        for (let i in points) {
+            let model = points[i];
+            let title = model.id;
+            if (isInCircle(model.lat, model.lng, currentCircle.getCenter().lat(), currentCircle.getCenter().lng(), currentCircle.getRadius())) {
+                garbageIds.push(model.id);
+            }
+        }
+    }
     document.getElementById('garbageCount').value = garbageIds.length;
+    calcNeed = false;
 }
 
 function initMap() {
@@ -16,7 +31,7 @@ function initMap() {
         // disableDefaultUI: true //убираем кнопки с карты
     });
 
-    let drawingManager = new google.maps.drawing.DrawingManager({
+    drawingManager = new google.maps.drawing.DrawingManager({
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.TOP_CENTER,
@@ -32,6 +47,15 @@ function initMap() {
         }
     });
     drawingManager.setMap(map);
+
+    google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
+        try{
+            previousCircle.setMap(null);
+        } catch (e) {}
+        currentCircle = circle;
+        previousCircle = currentCircle;
+        document.getElementById("garbageCalc").disabled = false;
+    });
 
     let points = getPoints();
     //Marker garbage on map.
@@ -51,16 +75,16 @@ function initMap() {
     }
     //Marker urns on map
 
-    google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
-        let points = getPoints();
-        for (let i in points) {
-            let model = points[i];
-            let title = model.id;
-            if (isInCircle(model.lat, model.lng, circle.getCenter().lat(), circle.getCenter().lng(), circle.getRadius())) {
-                garbageIds.push(model.id);
-            }
-        }
-    });
+    // google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
+    //     let points = getPoints();
+    //     for (let i in points) {
+    //         let model = points[i];
+    //         let title = model.id;
+    //         if (isInCircle(model.lat, model.lng, circle.getCenter().lat(), circle.getCenter().lng(), circle.getRadius())) {
+    //             garbageIds.push(model.id);
+    //         }
+    //     }
+    // });
 }
 
 function drawUrns(data) {
@@ -101,7 +125,8 @@ function getPoints() {
 }
 
 function sendPoints() {
-    if (garbageIds.length >= $('#urnCount').val()) {
+    let input = document.getElementById("urnCount").value;
+    if (!isNaN(input) && garbageIds.length >= input) {
         $.ajax({
             type: 'POST',
             url: '/optim',
@@ -129,7 +154,16 @@ function sendPoints() {
         $('#exampleModal2 .close').click();
         document.getElementById("garbageCalc").hidden = "hidden";
         document.getElementById("urnsSend").hidden = "";
+
+        removeDrawingControl();
     }
+}
+
+function removeDrawingControl() {
+    drawingManager.setDrawingMode(null);
+    drawingManager.setOptions({
+        drawingControl: false
+    });
 }
 
 function urnsSend() {

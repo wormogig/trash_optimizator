@@ -90,7 +90,7 @@
                 </div>
             </div>
             <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"
-                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2" onclick="garbageCount()" id="garbageCalc">
+                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2" onclick="garbageCount()" disabled id="garbageCalc">
                 Расчитать
             </button>
             <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"
