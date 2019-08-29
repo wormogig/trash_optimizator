@@ -6,6 +6,8 @@ import dto.PointSimple;
 import model.ModelPoint;
 import service.PointService;
 import service.PointServiceImpl;
+import service.ReportService;
+import service.ReportServiceImpl;
 import util.EmailSender;
 
 import javax.servlet.ServletException;
@@ -20,7 +22,8 @@ import java.util.List;
 
 @WebServlet("/report")
 public class ReportServlet extends HttpServlet {
-    PointService pointService = PointServiceImpl.getInstance();
+    private PointService pointService = PointServiceImpl.getInstance();
+    private ReportService reportService = ReportServiceImpl.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,6 +34,7 @@ public class ReportServlet extends HttpServlet {
         List<PointSimple> red = pointService.convertPointType(garbagePoints);
         List<PointSimple> green = gson.fromJson(req.getParameter("urns"), typeListPoint);
         EmailSender emailSender = new EmailSender(red, green);
-        emailSender.send();
+//        emailSender.send();
+        reportService.createReport(green);
     }
 }

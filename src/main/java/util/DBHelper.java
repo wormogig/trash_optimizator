@@ -1,8 +1,6 @@
 package util;
 
-import model.Category;
-import model.ModelPoint;
-import model.User;
+import model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -23,6 +21,8 @@ public class DBHelper {
         configuration.addAnnotatedClass(ModelPoint.class);
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Category.class);
+        configuration.addAnnotatedClass(Report.class);
+        configuration.addAnnotatedClass(ReportUrnPoint.class);
         configuration.setProperty("hibernate.dialect", PropertiesReader.getProperties("dialect"));
         configuration.setProperty("hibernate.connection.driver_class", PropertiesReader.getProperties("driver.class"));
         configuration.setProperty("hibernate.connection.url", PropertiesReader.getProperties("connection.url"));
