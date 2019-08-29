@@ -20,8 +20,7 @@
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&libraries=drawing,geometry&callback=initMap"
-            async defer></script>
+
 
 
     <title>TrashOptimizator</title>
@@ -60,7 +59,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">О нас</a>
+                    <a href="/" class="nav-link">О нас</a>
                 </li>
             </ul>
         </div>
@@ -71,15 +70,15 @@
 <div class="container-fluid">
     <div class="row">
         <!--maps-->
-        <div class="col-md-10" style="height: 900px">
+        <div class="col-md-10" style="height: 780px">
             <div id="map"></div>
         </div>
         <div id="bar" class="col-md-2">
-            <img src="https://www.flaticon.com/premium-icon/icons/svg/1991/1991033.svg" class="img-fluid"
-                 class="img-responsive">
-            <ul id="data_list">
-            </ul>
-            <title>data</title>
+<%--            <img src="https://www.flaticon.com/premium-icon/icons/svg/1991/1991033.svg" class="img-fluid"--%>
+<%--                 class="img-responsive">--%>
+<%--            <ul id="data_list">--%>
+<%--            </ul>--%>
+<%--            <title>data</title>--%>
 
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -137,6 +136,8 @@
 
 
 <script src="data.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI&libraries=drawing,geometry&callback=initMap"
+        async defer></script>
 
 </body>
 </html>
