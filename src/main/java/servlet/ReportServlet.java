@@ -29,7 +29,6 @@ public class ReportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        String[] str = req.getPathInfo().split("/");
         long id = Long.parseLong(req.getParameter("id"));
-        //PointInfo point = dtoService.getPoint(id);
         List<PointSimple> points = reportService.getPointFromReport(id);
         Gson gson = new Gson();
         String json = gson.toJson(points);
