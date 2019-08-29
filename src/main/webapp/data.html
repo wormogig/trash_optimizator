@@ -71,25 +71,7 @@
     <div class="row">
         <!--maps-->
         <div class="col-md-10" style="height: 900px">
-            <!--            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"-->
-            <!--                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo1">Выделить область-->
-            <!--            </button>-->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Сейчас выделяем область с точками</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div id="map"></div>
-
         </div>
         <div id="bar" class="col-md-2">
             <img src="https://www.flaticon.com/premium-icon/icons/svg/1991/1991033.svg" class="img-fluid"
@@ -108,8 +90,12 @@
                 </div>
             </div>
             <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"
-                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2" onclick="garbageCount()">
+                    data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo2" onclick="garbageCount()" id="garbageCalc">
                 Расчитать
+            </button>
+            <button style="position: absolute;z-index: 100;" type="button" class="btn btn-outline-secondary"
+                    data-toggle="modal" data-whatever="@mdo2" onclick="urnsSend()" id="urnsSend">
+                Отправить
             </button>
             <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                  aria-hidden="true">
@@ -131,7 +117,7 @@
                                 <div class="form-group">
                                     <label for="urnCount" class="col-form-label">Количество доступных урн для
                                         установки:</label>
-                                    <input type="number" class="form-control" required="required"
+                                    <input type="number" min="1" class="form-control" required="required"
                                            placeholder="Здесь вводим количество доступных урн"
                                            id="urnCount">
                                 </div>
@@ -149,145 +135,8 @@
 </div>
 
 
-<script>
-    let garbageIds = [];
-    let urns;
-    let map;
+<script src="data.js"></script>
 
-    function garbageCount() {
-        document.getElementById('garbageCount').value = garbageIds.length;
-    }
-
-
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 60.7735, lng: 28.6894}, //координаты lavola
-            zoom: 13,
-            // disableDefaultUI: true //убираем кнопки с карты
-        });
-
-        let drawingManager = new google.maps.drawing.DrawingManager({
-            drawingControl: true,
-            drawingControlOptions: {
-                position: google.maps.ControlPosition.TOP_CENTER,
-                drawingModes: ['circle']
-            },
-            circleOptions: {
-                fillColor: '#ffff00',
-                fillOpacity: 0.35,
-                strokeWeight: 1,
-                clickable: true,
-                editable: true,
-                zIndex: 1
-            }
-        });
-        drawingManager.setMap(map);
-
-        let points = getPoints();
-        //Marker garbage on map.
-        for (let i in points) {
-            let model = points[i];
-            let markerPosition = {lat: model.lat, lng: model.lng};
-            let title = model.id;
-            let marker = new google.maps.Marker({
-                position: markerPosition,
-                map: map,
-                title: "'" + title + "'",
-                id: model.id,
-                icon: {
-                    url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                }
-            });
-        }
-        //Marker urns on map
-
-        google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
-            let points = getPoints();
-            for (let i in points) {
-                let model = points[i];
-                let title = model.id;
-                if (isInCircle(model.lat, model.lng, circle.getCenter().lat(), circle.getCenter().lng(), circle.getRadius())) {
-                    garbageIds.push(model.id);
-                }
-            }
-        });
-    }
-
-
-    function drawUrns(data) {
-        for (let i in data) {
-            let model = data[i];
-            let markerPosition = {lat: model.lat, lng: model.lng};
-            let title = model.id;
-            let marker = new google.maps.Marker({
-                position: markerPosition,
-                map: map,
-                icon: {
-                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-                }
-            });
-        }
-    }
-
-    function isInCircle(pLat, pLong, cLat, cLong, cRad) {
-        var pCord = new google.maps.LatLng(pLat, pLong);
-        var cCord = new google.maps.LatLng(cLat, cLong);
-        return google.maps.geometry.spherical.computeDistanceBetween(pCord, cCord) <= cRad;
-    }
-
-    function getPoints() {
-        let points;
-        $.ajax({
-            type: 'GET',
-            url: '/points',
-            async: false,
-            success: function (data) {
-                points = data;
-            },
-            error: function (error) {
-                console.log(error.responseText);
-            }
-        });
-        return points;
-    }
-
-    function sendPoints() {
-        $.ajax({
-            type: 'POST',
-            url: '/optim',
-            async: false,
-            data: {garbageIds: JSON.stringify(garbageIds), urnCount: $('#urnCount').val()},
-            success: function (data) {
-                urns = data;
-            },
-            error: function (error) {
-                console.log(error.responseText);
-            },
-            // ("#exampleModal2").close(),
-
-
-        });
-        for (let i in urns) {
-            let model = urns[i];
-            let markerPosition = {lat: model.lat, lng: model.lng};
-            let title = model.id;
-            let marker = new google.maps.Marker({
-                position: markerPosition,
-                map: map,
-                icon: {
-                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-                }
-            });
-        }
-        $('#exampleModal2 .close').click();
-
-        // $('#exampleModalLabel2').close;
-        // $("#exampleModal2").modal().hide();
-        // $("#exampleModal2").close();
-
-        // $('.close').click();
-    }
-</script>
 
 </body>
 </html>

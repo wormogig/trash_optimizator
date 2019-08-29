@@ -1,5 +1,6 @@
 package service;
 
+import dto.PointSimple;
 import model.ModelPoint;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface PointService {
     public List<ModelPoint> getPointsById(List<Long> ids);
     public boolean addPoint(ModelPoint point);
     public boolean deletePointById(long id);
+    public List<PointSimple> convertPointType(List<ModelPoint> pointsIn);
 }
