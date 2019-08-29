@@ -38,6 +38,8 @@ public class DataGenerator {
             double lng = 28.757255 + Math.random() / 75;
             String date = generateDate();
 
+            //int randCategoryId = (int)(Math.random()*categories.size());
+            //int randUserId = (int)(Math.random()*users.size());
             int randCategoryId = (int)(Math.random()*categories.size());
             int randUserId = (int)(Math.random()*users.size());
 

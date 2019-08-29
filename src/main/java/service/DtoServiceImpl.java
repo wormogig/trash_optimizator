@@ -40,12 +40,22 @@ public class DtoServiceImpl implements DtoService {
 
     @Override
     public PointInfo getPoint(long id) {
-        return new PointInfo(pointService.getPoint(id));
+        ModelPoint modelPoint = pointService.getPoint(id);
+        PointInfo point = null;
+        if (modelPoint != null) {
+            point = new PointInfo(modelPoint);
+        }
+        return point;
     }
 
     @Override
     public PointInfoAdmin getPointAdmin(long id) {
-        return new PointInfoAdmin(pointService.getPoint(id));
+        ModelPoint modelPoint = pointService.getPoint(id);
+        PointInfoAdmin point = null;
+        if (modelPoint != null) {
+            point = new PointInfoAdmin(modelPoint);
+        }
+        return point;
     }
 
     @Override
