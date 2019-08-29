@@ -42,10 +42,15 @@ public class PointServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String json = req.getReader().readLine();
         Gson gson = new Gson();
-        PointSend point = gson.fromJson(json, PointSend.class);
-        dtoService.addPoint(point);
-        //
-        Message message = new Message();
+        Message message = new Message("");
+        try {
+            PointSend point = gson.fromJson(json, PointSend.class);
+            dtoService.addPoint(point);
+            message.setMessage("Добавление точки прошло успешно");
+        } catch (Exception e) {
+            System.out.println("Входной Json некорректен");
+            message.setMessage("Добавление точки не удалось");
+        }
         String mess = gson.toJson(message);
         resp.setContentType("text/html; charset=UTF-8");
         resp.getWriter().println(mess);
@@ -53,7 +58,12 @@ public class PointServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id = Long.parseLong(req.getParameter("id"));
-        pointService.deletePointById(id);
+        try {
+            long id = Long.parseLong(req.getParameter("id"));
+            pointService.deletePointById(id);
+        } catch (Exception e) {
+            System.out.println("Удаление точки не удалось");
+        }
+
     }
 }
