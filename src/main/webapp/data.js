@@ -1,14 +1,18 @@
 let garbageIds = [];
 let urns;
 let map;
+// let marker;
 
 document.getElementById("urnsSend").hidden = "hidden";
+var $jsName = document.querySelector('.name');
 
 function garbageCount() {
     document.getElementById('garbageCount').value = garbageIds.length;
 }
 
 function initMap() {
+    // let marker;
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 60.7735, lng: 28.6894}, //координаты lavola
         zoom: 13,
@@ -47,9 +51,21 @@ function initMap() {
                 url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
             }
         });
-    }
-    //Marker urns on map
+        google.maps.event.addListener(marker, 'click', function () {
+            // getPoint(marker.id);
+            infoWindow.open(map, marker);
+        });
 
+        let infoWindow = new google.maps.InfoWindow({
+            content: "Id: " + marker.id + "<br>" +
+                "Position: " + marker.position + "<br>"
+        });
+
+    }
+
+
+
+    //Marker urns on map
     google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
         let points = getPoints();
         for (let i in points) {
@@ -81,6 +97,21 @@ function isInCircle(pLat, pLong, cLat, cLong, cRad) {
     var pCord = new google.maps.LatLng(pLat, pLong);
     var cCord = new google.maps.LatLng(cLat, cLong);
     return google.maps.geometry.spherical.computeDistanceBetween(pCord, cCord) <= cRad;
+}
+
+function getPoint(pointId) {
+    $.ajax({
+        type: 'GET',
+        url: '/point',
+        // async: false,
+        data: {id: pointId},
+        success: function (data) {
+        },
+        error: function (error) {
+            console.log(error.responseText);
+        }
+    })
+
 }
 
 function getPoints() {
