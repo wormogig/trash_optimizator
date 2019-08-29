@@ -28,7 +28,7 @@
     <!--style for maps-->
     <style>
         #map {
-            height: 70% !important;
+            height: 100% !important;
             /*position: absolute !important;*/
             /*overflow: visible !important;*/
         }
