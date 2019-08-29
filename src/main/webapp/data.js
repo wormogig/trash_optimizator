@@ -2,6 +2,7 @@ let garbageIds = [];
 let urns;
 let map;
 
+
 document.getElementById("urnsSend").hidden = "hidden";
 
 function garbageCount() {
@@ -10,7 +11,7 @@ function garbageCount() {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 60.7735, lng: 28.6894}, //координаты lavola
+        center: {lat: 60.7070, lng: 28.7572}, //координаты Выборга
         zoom: 13,
         // disableDefaultUI: true //убираем кнопки с карты
     });
@@ -23,7 +24,7 @@ function initMap() {
         },
         circleOptions: {
             fillColor: '#ffff00',
-            fillOpacity: 0.35,
+            fillOpacity: 0.25,
             strokeWeight: 1,
             clickable: true,
             editable: true,
