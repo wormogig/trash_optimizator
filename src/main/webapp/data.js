@@ -10,18 +10,19 @@ let markers = [];
 document.getElementById("urnsSend").hidden = "hidden";
 
 function garbageCount() {
-    if(calcNeed) {
-        let points = getPoints();
-        for (let i in points) {
-            let model = points[i];
-            let title = model.id;
-            if (isInCircle(model.lat, model.lng, currentCircle.getCenter().lat(), currentCircle.getCenter().lng(), currentCircle.getRadius())) {
-                garbageIds.push(model.id);
-            }
+
+    garbageIds.length = 0;
+
+    let points = getPoints();
+    for (let i in points) {
+        let model = points[i];
+        let title = model.id;
+        if (isInCircle(model.lat, model.lng, currentCircle.getCenter().lat(), currentCircle.getCenter().lng(), currentCircle.getRadius())) {
+            garbageIds.push(model.id);
         }
     }
     document.getElementById('garbageCount').value = garbageIds.length;
-    calcNeed = false;
+
 }
 
 function initMap() {
@@ -50,9 +51,10 @@ function initMap() {
     drawingManager.setMap(map);
 
     google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
-        try{
+        try {
             previousCircle.setMap(null);
-        } catch (e) {}
+        } catch (e) {
+        }
         currentCircle = circle;
         previousCircle = currentCircle;
         document.getElementById("garbageCalc").disabled = false;
@@ -77,31 +79,19 @@ function initMap() {
         markers.push(marker);
 
         google.maps.event.addListener(marker, 'click', function () {
-            showInfo(getPoint(marker.id),marker)
+            showInfo(getPoint(marker.id), marker)
         });
-    index ++;
+        index++;
     }
 
-    function showInfo(pointInfo,marker){
+    function showInfo(pointInfo, marker) {
         let infoWindow = new google.maps.InfoWindow({
             content: "<p>" + pointInfo.categoryTitle + "<p>" +
                 "<img src='data:image/jpeg;base64," + pointInfo.image + "'/>" + "<br>" +
-            "<button onclick='removePoint(" + marker.id + ")'> Удалить</button>",
+                "<button onclick='removePoint(" + marker.id + ")'> Удалить</button>",
         })
         infoWindow.open(map, marker);
     }
-
-    //Marker urns on map
-    google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
-        let points = getPoints();
-        for (let i in points) {
-            let model = points[i];
-            let title = model.id;
-            if (isInCircle(model.lat, model.lng, circle.getCenter().lat(), circle.getCenter().lng(), circle.getRadius())) {
-                garbageIds.push(model.id);
-            }
-        }
-    });
 
 }
 
@@ -113,7 +103,7 @@ function removePoint(id) {
         data: {action: 'delete', id: id},
         success: function () {
             markers.forEach(function (mrk) {
-                if(mrk.id===id){
+                if (mrk.id === id) {
                     mrk.setMap(null);
                 }
             })
