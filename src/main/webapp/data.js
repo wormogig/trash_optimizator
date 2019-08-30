@@ -62,7 +62,6 @@ function initMap() {
 
     let points = getPoints();
     //Marker garbage on map.
-    let index = 0;
     for (let i in points) {
         let model = points[i];
         let markerPosition = {lat: model.lat, lng: model.lng};
@@ -81,7 +80,6 @@ function initMap() {
         google.maps.event.addListener(marker, 'click', function () {
             showInfo(getPoint(marker.id), marker)
         });
-        index++;
     }
 
     function showInfo(pointInfo, marker) {
