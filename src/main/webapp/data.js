@@ -1,21 +1,39 @@
 let garbageIds = [];
 let urns;
 let map;
+let drawingManager;
+let previousCircle;
+let currentCircle;
+let calcNeed = true;
+let markers = [];
 
 document.getElementById("urnsSend").hidden = "hidden";
 
 function garbageCount() {
+
+    garbageIds.length = 0;
+
+    let points = getPoints();
+    for (let i in points) {
+        let model = points[i];
+        let title = model.id;
+        if (isInCircle(model.lat, model.lng, currentCircle.getCenter().lat(), currentCircle.getCenter().lng(), currentCircle.getRadius())) {
+            garbageIds.push(model.id);
+        }
+    }
     document.getElementById('garbageCount').value = garbageIds.length;
+
 }
 
 function initMap() {
+
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 60.7735, lng: 28.6894}, //координаты lavola
+        center: {lat: 60.7070, lng: 28.7572}, //координаты Выборга
         zoom: 13,
         disableDefaultUI: true //убираем кнопки с карты
     });
 
-    let drawingManager = new google.maps.drawing.DrawingManager({
+    drawingManager = new google.maps.drawing.DrawingManager({
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.TOP_CENTER,
@@ -23,7 +41,7 @@ function initMap() {
         },
         circleOptions: {
             fillColor: '#ffff00',
-            fillOpacity: 0.35,
+            fillOpacity: 0.25,
             strokeWeight: 1,
             clickable: true,
             editable: true,
@@ -32,8 +50,19 @@ function initMap() {
     });
     drawingManager.setMap(map);
 
+    google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
+        try {
+            previousCircle.setMap(null);
+        } catch (e) {
+        }
+        currentCircle = circle;
+        previousCircle = currentCircle;
+        document.getElementById("garbageCalc").disabled = false;
+    });
+
     let points = getPoints();
     //Marker garbage on map.
+    let index = 0;
     for (let i in points) {
         let model = points[i];
         let markerPosition = {lat: model.lat, lng: model.lng};
@@ -47,19 +76,43 @@ function initMap() {
                 url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
             }
         });
-    }
-    //Marker urns on map
+        markers.push(marker);
 
-    google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
-        let points = getPoints();
-        for (let i in points) {
-            let model = points[i];
-            let title = model.id;
-            if (isInCircle(model.lat, model.lng, circle.getCenter().lat(), circle.getCenter().lng(), circle.getRadius())) {
-                garbageIds.push(model.id);
-            }
+        google.maps.event.addListener(marker, 'click', function () {
+            showInfo(getPoint(marker.id), marker)
+        });
+        index++;
+    }
+
+    function showInfo(pointInfo, marker) {
+        let infoWindow = new google.maps.InfoWindow({
+            content: "<p>" + pointInfo.categoryTitle + "<p>" +
+                "<img src='data:image/jpeg;base64," + pointInfo.image + "'/>" + "<br>" +
+                "<button onclick='removePoint(" + marker.id + ")'> Удалить</button>",
+        })
+        infoWindow.open(map, marker);
+    }
+
+}
+
+function removePoint(id) {
+    $.ajax({
+        type: 'POST',
+        url: '/point/admin',
+        async: false,
+        data: {action: 'delete', id: id},
+        success: function () {
+            markers.forEach(function (mrk) {
+                if (mrk.id === id) {
+                    mrk.setMap(null);
+                }
+            })
+        },
+        error: function (error) {
+            console.log(error.responseText);
         }
-    });
+    })
+
 }
 
 function drawUrns(data) {
@@ -83,6 +136,23 @@ function isInCircle(pLat, pLong, cLat, cLong, cRad) {
     return google.maps.geometry.spherical.computeDistanceBetween(pCord, cCord) <= cRad;
 }
 
+function getPoint(pointId) {
+    let pointInfo;
+    $.ajax({
+        type: 'GET',
+        url: '/point/admin',
+        async: false,
+        data: {id: pointId},
+        success: function (data) {
+            pointInfo = data;
+        },
+        error: function (error) {
+            console.log(error.responseText);
+        }
+    })
+    return pointInfo;
+}
+
 function getPoints() {
     let points;
     $.ajax({
@@ -100,7 +170,8 @@ function getPoints() {
 }
 
 function sendPoints() {
-    if (garbageIds.length >= $('#urnCount').val()) {
+    let input = document.getElementById("urnCount").value;
+    if (!isNaN(input) && garbageIds.length >= input) {
         $.ajax({
             type: 'POST',
             url: '/optim',
@@ -128,7 +199,16 @@ function sendPoints() {
         $('#exampleModal2 .close').click();
         document.getElementById("garbageCalc").hidden = "hidden";
         document.getElementById("urnsSend").hidden = "";
+
+        removeDrawingControl();
     }
+}
+
+function removeDrawingControl() {
+    drawingManager.setDrawingMode(null);
+    drawingManager.setOptions({
+        drawingControl: false
+    });
 }
 
 function urnsSend() {
