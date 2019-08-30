@@ -28,7 +28,7 @@ public class EmailSender {
         String center = "";
 //        String zoom = "?zoom=16";
         String zoom = "";
-        String size = "?size=800x600";
+        String size = "?size=800x500";
         String mapType = "&maptype=roadmap";
         String markersRed = "&markers=color:red%7Csize:tiny%7C";
         String markersGreen = "&markers=color:green%7C";
