@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/report")
 public class ReportServlet extends HttpServlet {
@@ -52,7 +54,10 @@ public class ReportServlet extends HttpServlet {
         List<PointSimple> red = pointService.convertPointType(garbagePoints);
         List<PointSimple> green = gson.fromJson(req.getParameter("urns"), typeListPoint);
         EmailSender emailSender = new EmailSender(red, green);
-        emailSender.send();
-        reportService.createReport(green, garbagePoints);
+        long reportID = reportService.createReport(green, garbagePoints);
+        Map<String, Object> map = new HashMap<>();
+        map.put("urlTO", "https://server-trash-optimizator.herokuapp.com/report?id=" + reportID);
+        emailSender.send(map);
+
     }
 }
