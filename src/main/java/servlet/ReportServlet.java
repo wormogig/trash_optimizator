@@ -58,6 +58,5 @@ public class ReportServlet extends HttpServlet {
         Map<String, Object> map = new HashMap<>();
         map.put("urlTO", "https://server-trash-optimizator.herokuapp.com/report?id=" + reportID);
         emailSender.send(map);
-
     }
 }
