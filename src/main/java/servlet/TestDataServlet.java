@@ -49,6 +49,7 @@ public class TestDataServlet extends HttpServlet {
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.getWriter().println("Тестовые данные внесены в БД");
+        resp.sendRedirect("/");
     }
 
 }

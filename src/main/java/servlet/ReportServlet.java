@@ -57,6 +57,10 @@ public class ReportServlet extends HttpServlet {
         long reportID = reportService.createReport(green, garbagePoints);
         Map<String, Object> map = new HashMap<>();
         map.put("urlTO", "https://server-trash-optimizator.herokuapp.com/report?id=" + reportID);
-        emailSender.send(map);
+        String html = emailSender.send(map);
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("utf-8");
+        resp.getWriter().write(html);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }

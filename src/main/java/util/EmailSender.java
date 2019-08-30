@@ -26,11 +26,11 @@ public class EmailSender {
         String link = "https://maps.googleapis.com/maps/api/staticmap";
 //        String center = "?center=60.775243,28.698896";
         String center = "";
-        String zoom = "?zoom=15";
-//        String zoom = "";
-        String size = "&size=600x300";
+//        String zoom = "?zoom=16";
+        String zoom = "";
+        String size = "?size=800x600";
         String mapType = "&maptype=roadmap";
-        String markersRed = "&markers=color:red%7C";
+        String markersRed = "&markers=color:red%7Csize:tiny%7C";
         String markersGreen = "&markers=color:green%7C";
         String keyApi = "&key=AIzaSyC_0hHjpGU0ktipMMfo4CXMcqmeDBLANWI";
         url.append(link);
@@ -65,7 +65,7 @@ public class EmailSender {
         return pageGenerator.getPage("email.html", map);
     }
 
-    public void send(Map<String, Object> map) {
+    public String send(Map<String, Object> map) {
         final String username = "trashoptimizator@gmail.com";
         final String password = "new111112";
         Properties prop = new Properties();
@@ -93,8 +93,10 @@ public class EmailSender {
             message.setContent(text, "text/html; charset=UTF-8");
 //            Transport.send(message);
             System.out.println("Done");
+            return text;
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        return "";
     }
 }
