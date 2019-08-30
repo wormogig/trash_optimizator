@@ -56,16 +56,15 @@ public class EmailSender {
     /*
 Вставка URL-а в письмо
  */
-    public String generateMessage(){
+    public String generateMessage(Map<String, Object> map){
         PageGenerator pageGenerator = PageGenerator.getInstance();
-        Map<String, Object> map = new HashMap<>();
         StringBuilder url = generateURL();
-        map.put("url", url);
+        map.put("urlMap", url);
         System.out.println(url);
         return pageGenerator.getPage("email.html", map);
     }
 
-    public void send() {
+    public void send(Map<String, Object> map) {
         final String username = "trashoptimizator@gmail.com";
         final String password = "new111112";
         Properties prop = new Properties();
@@ -88,9 +87,10 @@ public class EmailSender {
                     InternetAddress.parse("new770001@yandex.ru, 770001@rambler.ru, khilkevichigor@gmail.com")
             );
             message.setSubject("Рекомендация по установке мусорных урн");
-            String text = generateMessage();
+            String text = generateMessage(map);
+            System.out.println(text);
             message.setContent(text, "text/html; charset=UTF-8");
-            Transport.send(message);
+//            Transport.send(message);
             System.out.println("Done");
         } catch (MessagingException e) {
             e.printStackTrace();

@@ -3,6 +3,8 @@ package model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -32,6 +34,8 @@ public class ModelPoint extends AbstractDbObj{
     @Column
     private boolean isCompleted;
 
+    @ManyToMany(mappedBy = "garbagePoints")
+    private Set<Report> reports = new HashSet<>();
 
     public ModelPoint() {
     }
