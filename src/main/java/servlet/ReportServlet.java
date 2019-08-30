@@ -52,11 +52,12 @@ public class ReportServlet extends HttpServlet {
         EmailSender emailSender = new EmailSender(red, green);
         long reportID = reportService.createReport(green, garbagePoints);
         Map<String, Object> map = new HashMap<>();
-        map.put("urlTO", SERVER_URL + "report?id=" + reportID);
+        String urlTO = SERVER_URL + "report?id=" + reportID;
+        map.put("urlTO", urlTO);
         String html = emailSender.send(map);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf-8");
-        resp.getWriter().write(html);
+        resp.getWriter().write(urlTO);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
