@@ -28,7 +28,7 @@ import java.util.Map;
 
 @WebServlet("/report")
 public class ReportServlet extends HttpServlet {
-    private final String SERVER_URL = "localhost:8080/";
+    private final String SERVER_URL = "http://localhost:8080/";
     private PointService pointService = PointServiceImpl.getInstance();
     private ReportService reportService = ReportServiceImpl.getInstance();
 
