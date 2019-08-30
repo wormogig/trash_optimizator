@@ -88,9 +88,9 @@ public class EmailSender {
             );
             message.setSubject("Рекомендация по установке мусорных урн");
             String text = generateMessage(map);
-//            System.out.println(text);
+            System.out.println(text);
             message.setContent(text, "text/html; charset=UTF-8");
-            Transport.send(message);
+//            Transport.send(message);
             System.out.println("Done");
         } catch (MessagingException e) {
             e.printStackTrace();
