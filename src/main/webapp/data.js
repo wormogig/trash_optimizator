@@ -169,7 +169,7 @@ function getPoints() {
 
 function sendPoints() {
     let input = document.getElementById("urnCount").value;
-    if (!isNaN(input) && garbageIds.length >= input) {
+    if (garbageIds.length >= input) {
         $.ajax({
             type: 'POST',
             url: '/optim',
@@ -222,3 +222,8 @@ function urnsSend() {
         },
     });
 }
+
+let pattern = /^[1-9]/;
+$('#urnCount').keyup(function(){
+    $('#calc').prop('disabled', !pattern.test($(this).val()));
+});
