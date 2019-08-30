@@ -214,8 +214,9 @@ function urnsSend() {
         type: 'POST',
         url: '/report',
         data: {garbageIds: JSON.stringify(garbageIds), urns: JSON.stringify(urns)},
-        success: function () {
-            alert("Отправлено!");
+        success: function (data) {
+            let msg = "Отправлено!\n" + data
+            alert(msg);
         },
         error: function (error) {
             console.log(error.responseText);
