@@ -38,18 +38,19 @@ public class EmailSender {
         url.append(zoom);
         url.append(size);
         url.append(mapType);
-        for (int i = 0; i < redMarkers.size(); i++) {
-            url.append(markersRed);
-            url.append(redMarkers.get(i).getLat());
-            url.append(",");
-            url.append(redMarkers.get(i).getLng());
-        }
         for (int i = 0; i < greenMarkers.size(); i++) {
             url.append(markersGreen);
             url.append(greenMarkers.get(i).getLat());
             url.append(",");
             url.append(greenMarkers.get(i).getLng());
         }
+        for (int i = 0; i < redMarkers.size(); i++) {
+            url.append(markersRed);
+            url.append(redMarkers.get(i).getLat());
+            url.append(",");
+            url.append(redMarkers.get(i).getLng());
+        }
+
         url.append(keyApi);
         return url;
     }
