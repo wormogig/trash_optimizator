@@ -52,7 +52,7 @@ public class ReportServlet extends HttpServlet {
         List<PointSimple> red = pointService.convertPointType(garbagePoints);
         List<PointSimple> green = gson.fromJson(req.getParameter("urns"), typeListPoint);
         EmailSender emailSender = new EmailSender(red, green);
-//        emailSender.send();
+        emailSender.send();
         reportService.createReport(green, garbagePoints);
     }
 }
