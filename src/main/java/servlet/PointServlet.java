@@ -30,7 +30,7 @@ public class PointServlet extends HttpServlet {
         String json = gson.toJson(point);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(json);
+        resp.getWriter().println(json);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 

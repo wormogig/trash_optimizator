@@ -85,13 +85,14 @@ public class EmailSender {
             message.setFrom(new InternetAddress("trashoptimizator@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse("new770001@yandex.ru, 770001@rambler.ru, khilkevichigor@gmail.com")
+                    InternetAddress.parse("wormogig@mail.ru")
             );
+            //Email Игоря "new770001@yandex.ru, 770001@rambler.ru, khilkevichigor@gmail.com"
             message.setSubject("Рекомендация по установке мусорных урн");
             String text = generateMessage(map);
             System.out.println(text);
             message.setContent(text, "text/html; charset=UTF-8");
-//            Transport.send(message);
+            Transport.send(message);
             System.out.println("Done");
             return text;
         } catch (MessagingException e) {
