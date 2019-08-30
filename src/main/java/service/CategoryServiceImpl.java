@@ -32,6 +32,11 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
+    public boolean deleteAllCategories() {
+        return categoryDao.deleteAll(Category.class.getName());
+    }
+
+    @Override
     public Category getCategoryByID(long id) {
         return categoryDao.getCategoryByID(id);
     }

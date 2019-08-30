@@ -63,6 +63,11 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
+    public boolean deleteAllPoints() {
+        return pointDAO.deleteAll(ModelPoint.class.getName());
+    }
+
+    @Override
     public boolean deletePointById(long id) {
         return pointDAO.deletePointByID(id);
     }

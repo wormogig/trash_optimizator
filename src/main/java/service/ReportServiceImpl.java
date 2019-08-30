@@ -44,6 +44,12 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public boolean deleteAllReports() {
+        return reportDao.deleteAll(ReportUrnPoint.class.getName()) &&
+                reportDao.deleteAll(Report.class.getName());
+    }
+
+    @Override
     public List<PointSimple> getGarbagePointFromReport(Report report) {
         Set<ModelPoint> modelPoints = report.getGarbagePoints();
         List<PointSimple> points = new ArrayList<>();

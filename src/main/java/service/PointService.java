@@ -11,6 +11,7 @@ public interface PointService {
     public List<ModelPoint> getPoints();
     public List<ModelPoint> getPointsById(List<Long> ids);
     public boolean addPoint(ModelPoint point);
+    public boolean deleteAllPoints();
     public boolean deletePointById(long id);
     public List<PointSimple> convertPointType(List<ModelPoint> pointsIn);
 }
