@@ -18,8 +18,8 @@ import java.io.IOException;
 
 @WebServlet("/point/*")
 public class PointServlet extends HttpServlet {
-    DtoService dtoService = DtoServiceImpl.getInstance();
-    PointService pointService = PointServiceImpl.getInstance();
+    private DtoService dtoService = DtoServiceImpl.getInstance();
+    private PointService pointService = PointServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
