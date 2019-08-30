@@ -28,8 +28,8 @@ function garbageCount() {
 function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 60.7070, lng: 28.7572}, //координаты Выборга
-        zoom: 13,
+        center: {lat: 60.702444, lng: 28.765653}, //координаты Выборга
+        zoom: 14,
         disableDefaultUI: true //убираем кнопки с карты
     });
 

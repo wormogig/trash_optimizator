@@ -13,9 +13,10 @@ public class DataGenerator {
     private ArrayList<Category> categories;
 
     public ArrayList<User> generateUsers(int numUsers) {
+        String[] names = {"Владислав", "Алексей", "Михаил", "Андрей"};
         this.users = new ArrayList<>();
         for (int i = 1; i <= numUsers; i++) {
-            users.add(new User("User" + i));
+            users.add(new User(names[numUsers % names.length]));
         }
         return users;
     }
@@ -37,9 +38,116 @@ public class DataGenerator {
             double lat = 60.707046 + Math.random() / 150;
             double lng = 28.757255 + Math.random() / 75;
             String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
 
-            //int randCategoryId = (int)(Math.random()*categories.size());
-            //int randUserId = (int)(Math.random()*users.size());
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.702592 + Math.random() / 150;
+            double lng = 28.773059 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.704757 + Math.random() / 150;
+            double lng = 28.749695 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.695443 + Math.random() / 150;
+            double lng = 28.763533 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.702834 + Math.random() / 150;
+            double lng = 28.788753 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.701162 + Math.random() / 150;
+            double lng = 28.751802 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.709746 + Math.random() / 150;
+            double lng = 28.742336 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.702097 + Math.random() / 150;
+            double lng = 28.742421+ Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.694769 + Math.random() / 150;
+            double lng = 28.755813 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.705317 + Math.random() / 150;
+            double lng = 28.768058 + Math.random() / 75;
+            String date = generateDate();
+            int randCategoryId = (int)(Math.random()*categories.size());
+            int randUserId = (int)(Math.random()*users.size());
+            int randImageId = (int)(Math.random()*images.size());
+
+            points.add(new ModelPoint(lat, lng, categories.get(randCategoryId), date, users.get(randUserId), false, images.get(randImageId)));
+        }
+
+        for (int i = 1; i <= numPoints; i++) {
+            double lat = 60.698601 + Math.random() / 150;
+            double lng = 28.743528 + Math.random() / 75;
+            String date = generateDate();
             int randCategoryId = (int)(Math.random()*categories.size());
             int randUserId = (int)(Math.random()*users.size());
             int randImageId = (int)(Math.random()*images.size());

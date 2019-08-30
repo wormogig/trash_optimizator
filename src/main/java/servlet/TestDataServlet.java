@@ -41,7 +41,7 @@ public class TestDataServlet extends HttpServlet {
 
 
         //Вызывать generatePoints можно только после вызова generateUsers и generateCategories, пока ~костыль
-        List<ModelPoint> points = dataGenerator.generatePoints(150);
+        List<ModelPoint> points = dataGenerator.generatePoints(20);
         for (ModelPoint point : points) {
             pointService.addPoint(point);
             System.out.println(point.getId());
