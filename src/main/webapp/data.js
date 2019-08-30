@@ -215,6 +215,7 @@ function urnsSend() {
         url: '/report',
         data: {garbageIds: JSON.stringify(garbageIds), urns: JSON.stringify(urns)},
         success: function () {
+            alert("Отправлено!");
         },
         error: function (error) {
             console.log(error.responseText);
