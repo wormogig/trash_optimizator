@@ -28,6 +28,7 @@ import java.util.Map;
 
 @WebServlet("/report")
 public class ReportServlet extends HttpServlet {
+    private final String SERVER_URL = "localhost:8080/";
     private PointService pointService = PointServiceImpl.getInstance();
     private ReportService reportService = ReportServiceImpl.getInstance();
 
@@ -51,7 +52,7 @@ public class ReportServlet extends HttpServlet {
         EmailSender emailSender = new EmailSender(red, green);
         long reportID = reportService.createReport(green, garbagePoints);
         Map<String, Object> map = new HashMap<>();
-        map.put("urlTO", "https://server-trash-optimizator.herokuapp.com/report?id=" + reportID);
+        map.put("urlTO", SERVER_URL + "report?id=" + reportID);
         String html = emailSender.send(map);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf-8");
