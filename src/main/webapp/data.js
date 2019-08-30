@@ -169,7 +169,7 @@ function getPoints() {
 
 function sendPoints() {
     let input = document.getElementById("urnCount").value;
-    if (!isNaN(input) && garbageIds.length >= input) {
+    if (garbageIds.length >= input) {
         $.ajax({
             type: 'POST',
             url: '/optim',
@@ -215,9 +215,15 @@ function urnsSend() {
         url: '/report',
         data: {garbageIds: JSON.stringify(garbageIds), urns: JSON.stringify(urns)},
         success: function () {
+            alert("Отправлено!");
         },
         error: function (error) {
             console.log(error.responseText);
         },
     });
 }
+
+let pattern = /^[1-9]/;
+$('#urnCount').keyup(function(){
+    $('#calc').prop('disabled', !pattern.test($(this).val()));
+});
