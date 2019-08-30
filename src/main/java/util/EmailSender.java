@@ -85,7 +85,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress("trashoptimizator@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse("wormogig@yandex.ru, wormogig@gmail.com")
+                    InternetAddress.parse("wormogig@yandex.ru, wormogig@gmail.com, vbelovitsky@yandex.ru, m.klopotnuk@gmail.com")
             );
             //Email Игоря "new770001@yandex.ru, 770001@rambler.ru, khilkevichigor@gmail.com"
             message.setSubject("Рекомендация по установке мусорных урн");
