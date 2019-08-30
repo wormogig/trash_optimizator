@@ -15,6 +15,23 @@ public abstract class AbstractDaoImpl implements AbstractDao{
         sessionFactory = DBHelper.getSessionFactory();
     }
 
+    @Override
+    public boolean deleteAll(String className) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        boolean isAllDeleted = false;
+        try {
+            Query query = session.createQuery("DELETE FROM " + className + " t");
+            query.executeUpdate();
+            transaction.commit();
+            isAllDeleted = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        return true;
+    }
+
     public boolean addObj(AbstractDbObj obj) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
