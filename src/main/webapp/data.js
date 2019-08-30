@@ -62,7 +62,6 @@ function initMap() {
 
     let points = getPoints();
     //Marker garbage on map.
-    let index = 0;
     for (let i in points) {
         let model = points[i];
         let markerPosition = {lat: model.lat, lng: model.lng};
@@ -81,7 +80,6 @@ function initMap() {
         google.maps.event.addListener(marker, 'click', function () {
             showInfo(getPoint(marker.id), marker)
         });
-        index++;
     }
 
     function showInfo(pointInfo, marker) {
@@ -171,7 +169,7 @@ function getPoints() {
 
 function sendPoints() {
     let input = document.getElementById("urnCount").value;
-    if (!isNaN(input) && garbageIds.length >= input) {
+    if (garbageIds.length >= input) {
         $.ajax({
             type: 'POST',
             url: '/optim',
@@ -217,9 +215,15 @@ function urnsSend() {
         url: '/report',
         data: {garbageIds: JSON.stringify(garbageIds), urns: JSON.stringify(urns)},
         success: function () {
+            alert("Отправлено!");
         },
         error: function (error) {
             console.log(error.responseText);
         },
     });
 }
+
+let pattern = /^[1-9]/;
+$('#urnCount').keyup(function(){
+    $('#calc').prop('disabled', !pattern.test($(this).val()));
+});

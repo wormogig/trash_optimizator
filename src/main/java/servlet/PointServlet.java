@@ -18,8 +18,8 @@ import java.io.IOException;
 
 @WebServlet("/point/*")
 public class PointServlet extends HttpServlet {
-    DtoService dtoService = DtoServiceImpl.getInstance();
-    PointService pointService = PointServiceImpl.getInstance();
+    private DtoService dtoService = DtoServiceImpl.getInstance();
+    private PointService pointService = PointServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,8 +28,10 @@ public class PointServlet extends HttpServlet {
         PointInfo point = dtoService.getPoint(id);
         Gson gson = new Gson();
         String json = gson.toJson(point);
-        resp.setContentType("text/html; charset=UTF-8");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().println(json);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
