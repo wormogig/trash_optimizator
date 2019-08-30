@@ -5,12 +5,28 @@ function initMap() {
         zoom: 13,
         disableDefaultUI: true //убираем кнопки с карты
     });
-
-    let points = getPoints();
+    let jsons = getPoints();
     //Marker garbage on map.
-    let index = 0;
-    for (let i in points) {
-        let model = points[i];
+    let green = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+    let red = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+
+    for (let i in jsons[0]) {
+        let model = jsons[0][i];
+        let markerPosition = {lat: model.lat, lng: model.lng};
+        let title = model.id;
+        let marker = new google.maps.Marker({
+            position: markerPosition,
+            map: map,
+            title: "'" + title + "'",
+            id: model.id,
+            icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            }
+        });
+    }
+
+    for (let i in jsons[1]) {
+        let model = jsons[1][i];
         let markerPosition = {lat: model.lat, lng: model.lng};
         let title = model.id;
         let marker = new google.maps.Marker({
@@ -24,5 +40,23 @@ function initMap() {
         });
     }
 
+    // alert(window.location.href);
+}
 
+function getPoints() {
+    let id = window.location.href.split("=");
+    let points;
+    $.ajax({
+        type: 'GET',
+        url: '/getreport',
+        data: {id: id[1]},
+        async: false,
+        success: function (data) {
+            points = data;
+        },
+        error: function (error) {
+            console.log(error.responseText);
+        }
+    });
+    return points;
 }
