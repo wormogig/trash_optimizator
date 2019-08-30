@@ -25,8 +25,10 @@ public class PointAdminServlet extends HttpServlet {
         PointInfoAdmin point = dtoService.getPointAdmin(id);
         Gson gson = new Gson();
         String json = gson.toJson(point);
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().println(json);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(json);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override

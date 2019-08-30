@@ -3,12 +3,15 @@ package service;
 import dao.ReportDao;
 import dao.ReportDaoImpl;
 import dto.PointSimple;
+import model.ModelPoint;
 import model.Report;
 import model.ReportUrnPoint;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.SimpleTimeZone;
 
 public class ReportServiceImpl implements ReportService {
     private static ReportService instance;
@@ -30,18 +33,28 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public long createReport(List<PointSimple> pointsIn) {
+    public long createReport(List<PointSimple> urnPoints, List<ModelPoint> garbagePoints) {
         Report report = new Report(LocalDateTime.now());
+        report.getGarbagePoints().addAll(garbagePoints);
         reportDao.addObj(report);
-        for (PointSimple pointIn: pointsIn) {
+        for (PointSimple pointIn: urnPoints) {
             reportDao.addObj(new ReportUrnPoint(pointIn, report));
         }
         return report.getId();
     }
 
     @Override
-    public List<PointSimple> getPointFromReport(long reportsId) {
-        Report report = reportDao.getById(reportsId, Report.class.getName());
+    public List<PointSimple> getGarbagePointFromReport(Report report) {
+        Set<ModelPoint> modelPoints = report.getGarbagePoints();
+        List<PointSimple> points = new ArrayList<>();
+        for (ModelPoint point : modelPoints) {
+            points.add(new PointSimple(point));
+        }
+        return points;
+    }
+
+    @Override
+    public List<PointSimple> getUrnPointFromReport(Report report) {
         List<ReportUrnPoint> pointsDB = reportDao.getPointsByReportID(report);
         List<PointSimple> points = new ArrayList<>();
         for (ReportUrnPoint pointDB: pointsDB) {
@@ -49,4 +62,12 @@ public class ReportServiceImpl implements ReportService {
         }
         return points;
     }
+
+    @Override
+    public Report getReportById(long id) {
+        return reportDao.getById(id, Report.class.getName());
+    }
+
+
+
 }

@@ -8,7 +8,7 @@ public class PropertiesReader {
     private static String fileName;
 
     private static void setFileName() {
-        fileName = "hibernate.properties";
+        fileName = "hibernate-h2.properties";
     }
 
     public static String getProperties (String name) {

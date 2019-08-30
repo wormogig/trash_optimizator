@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dto.PointSimple;
 import model.ModelPoint;
+import model.Report;
 import service.PointService;
 import service.PointServiceImpl;
 import service.ReportService;
@@ -29,11 +30,17 @@ public class ReportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        String[] str = req.getPathInfo().split("/");
         long id = Long.parseLong(req.getParameter("id"));
-        List<PointSimple> points = reportService.getPointFromReport(id);
+        Report report = reportService.getReportById(id);
+        List<PointSimple> green = reportService.getUrnPointFromReport(report);
+        List<PointSimple> red = reportService.getGarbagePointFromReport(report);
         Gson gson = new Gson();
-        String json = gson.toJson(points);
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().println(json);
+        String jsonGreen = gson.toJson(green);
+        String jsonRed = gson.toJson(red);
+        String json = "{green: " + jsonGreen + ", red: " + jsonRed + "}";
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(json);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
@@ -46,6 +53,6 @@ public class ReportServlet extends HttpServlet {
         List<PointSimple> green = gson.fromJson(req.getParameter("urns"), typeListPoint);
         EmailSender emailSender = new EmailSender(red, green);
 //        emailSender.send();
-        reportService.createReport(green);
+        reportService.createReport(green, garbagePoints);
     }
 }
