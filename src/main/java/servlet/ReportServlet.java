@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dto.PointSimple;
 import model.ModelPoint;
+import model.Report;
 import service.PointService;
 import service.PointServiceImpl;
 import service.ReportService;
@@ -18,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/report")
 public class ReportServlet extends HttpServlet {
@@ -29,11 +32,17 @@ public class ReportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        String[] str = req.getPathInfo().split("/");
         long id = Long.parseLong(req.getParameter("id"));
-        List<PointSimple> points = reportService.getPointFromReport(id);
+        Report report = reportService.getReportById(id);
+        List<PointSimple> green = reportService.getUrnPointFromReport(report);
+        List<PointSimple> red = reportService.getGarbagePointFromReport(report);
         Gson gson = new Gson();
-        String json = gson.toJson(points);
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().println(json);
+        String jsonGreen = gson.toJson(green);
+        String jsonRed = gson.toJson(red);
+        String json = "{green: " + jsonGreen + ", red: " + jsonRed + "}";
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(json);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
@@ -45,7 +54,10 @@ public class ReportServlet extends HttpServlet {
         List<PointSimple> red = pointService.convertPointType(garbagePoints);
         List<PointSimple> green = gson.fromJson(req.getParameter("urns"), typeListPoint);
         EmailSender emailSender = new EmailSender(red, green);
-//        emailSender.send();
-        reportService.createReport(green);
+        long reportID = reportService.createReport(green, garbagePoints);
+        Map<String, Object> map = new HashMap<>();
+        map.put("urlTO", "https://server-trash-optimizator.herokuapp.com/report?id=" + reportID);
+        emailSender.send(map);
+
     }
 }

@@ -23,7 +23,9 @@ public class CategoriesServlet extends HttpServlet {
         List<Category> points = categoryService.getAllCategories();
         Gson gson = new Gson();
         String json = gson.toJson(points);
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().println(json);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(json);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
